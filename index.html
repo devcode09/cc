@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Cupid 💜 | Connect. Match. Belong.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="toast-container"></div>
+
+<header class="site-header">
+  <a href="index.html" class="logo">💜 Campus<span class="gradient-text">Cupid</span></a>
+  <nav class="nav-links">
+    <a href="#how">How it works</a><a href="#modes">Modes</a><a href="#campus">Campus</a><a href="#safety">Safety</a>
+  </nav>
+  <div class="header-actions">
+    <button class="btn btn-ghost btn-sm" onclick="CC.openModal('loginModal')">Log In</button>
+    <button class="btn btn-primary btn-sm" onclick="CC.openModal('registerModal')">Join Now</button>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <span class="eyebrow">Exclusively for UPES Bidholi &amp; Kandoli</span>
+  <h1>YOUR CAMPUS.<br><span class="gradient-text">YOUR PEOPLE.</span><br>YOUR CONNECTIONS.</h1>
+  <p>Discover friends, study partners, teammates, and meaningful connections across UPES — verified, private, and made for your campus.</p>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="ccStartDemo()">Continue as Demo Student →</button>
+    <a href="#how" class="btn btn-outline">Explore Campus</a>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Simple &amp; Fast</span><h2>How It Works</h2></div>
+    <div class="steps">
+      <div class="step-card glass"><div class="step-num">01</div><h3>Create Your Profile</h3><p class="text-muted">Verify with your UPES email and build a rich, personality-first profile.</p></div>
+      <div class="step-card glass"><div class="step-num">02</div><h3>Tell Us Your Vibe</h3><p class="text-muted">Pick Dating, BFF, or Study Buddy — or all three.</p></div>
+      <div class="step-card glass"><div class="step-num">03</div><h3>Discover Your Matches</h3><p class="text-muted">Swipe, explore, or get curated daily picks based on real compatibility.</p></div>
+      <div class="step-card glass"><div class="step-num">04</div><h3>Connect</h3><p class="text-muted">Chat, meet up on campus, and build your circle.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Three Ways To Connect</span><h2>Pick Your Mode</h2></div>
+    <div class="modes-grid">
+      <div class="mode-card glass"><div class="mode-emoji">❤️</div><h3>Dating</h3><p class="text-muted">Meaningful connections &amp; casual conversations.</p>
+        <ul><li>Swipe matching</li><li>Compatibility score</li><li>Super Like &amp; Boost</li><li>Secret Crush</li><li>Mystery Match</li></ul></div>
+      <div class="mode-card glass"><div class="mode-emoji">🤝</div><h3>BFF / Friendship</h3><p class="text-muted">Find your people through shared interests.</p>
+        <ul><li>Explore grid</li><li>Interest discovery</li><li>Group matching</li><li>Campus activities</li></ul></div>
+      <div class="mode-card glass"><div class="mode-emoji">📚</div><h3>Study Buddy</h3><p class="text-muted">Partners for classes, code, and exams.</p>
+        <ul><li>Branch &amp; year match</li><li>Free-slot sharing</li><li>Library partners</li><li>Project teammates</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="campus">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Built For UPES</span><h2>One Ecosystem, Two Campuses</h2></div>
+    <div class="campus-grid">
+      <div class="campus-card glass"><h3>🏛️ Bidholi</h3><p class="text-muted">Engineering &amp; core campus energy — find your CSE study group or your next badminton partner near the Sports Complex.</p></div>
+      <div class="campus-card glass"><h3>🌲 Kandoli</h3><p class="text-muted">Design, business &amp; law campus vibes — connect over portfolios, pitch decks, or late-night library sessions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="safety">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Non-Negotiable</span><h2>Verified &amp; Private By Design</h2></div>
+    <div class="safety-grid">
+      <div class="safety-card glass"><div class="ic">✓</div><h3>Verified UPES Students Only</h3><p class="text-muted">Only students with an authenticated @upes.ac.in ID can join.</p></div>
+      <div class="safety-card glass"><div class="ic">🕶️</div><h3>Anonymous &amp; Shy Mode</h3><p class="text-muted">Hide identifying info until you're ready to reveal.</p></div>
+      <div class="safety-card glass"><div class="ic">🛡️</div><h3>Report, Block, Moderate</h3><p class="text-muted">One-click safety tools backed by moderation systems.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <h2>Your next great connection could be <span class="gradient-text">one swipe away.</span></h2>
+    <button class="btn btn-primary" onclick="ccStartDemo()">Start Exploring →</button>
+  </div>
+</section>
+
+<footer>© Campus Cupid — A UPES student community project. Meet your people. Find your vibe. Build your campus circle.</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box glass" style="position:relative;">
+    <span class="close-x" data-close-modal="loginModal">✕</span>
+    <h2 class="gradient-text" style="margin-bottom:20px;">Welcome Back</h2>
+    <form onsubmit="return ccMockLogin(event)">
+      <div class="form-group"><label>UPES Email</label><input class="form-control" type="email" placeholder="yourname@upes.ac.in" required></div>
+      <div class="form-group"><label>Password</label><input class="form-control" type="password" required></div>
+      <button class="btn btn-primary" style="width:100%;">Log In</button>
+    </form>
+    <p class="text-dim" style="text-align:center;margin-top:16px;font-size:.8rem;">or</p>
+    <button class="btn btn-outline" style="width:100%;margin-top:10px;" onclick="ccStartDemo()">Continue as Demo Student</button>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal-box glass" style="position:relative;">
+    <span class="close-x" data-close-modal="registerModal">✕</span>
+    <h2 class="gradient-text" style="margin-bottom:6px;">Join Campus Cupid</h2>
+    <p class="text-dim" style="margin-bottom:20px;font-size:.85rem;">Only verified UPES students can access the community.</p>
+    <form onsubmit="return ccMockRegister(event)">
+      <div class="form-group"><label>Full Name</label><input class="form-control" required></div>
+      <div class="form-group"><label>UPES Email</label><input class="form-control" id="regEmail" type="email" placeholder="yourname@upes.ac.in" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Campus</label><select class="form-control"><option>Bidholi</option><option>Kandoli</option></select></div>
+        <div class="form-group"><label>Academic Year</label><select class="form-control"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Course</label><input class="form-control" placeholder="B.Tech / BBA / B.Des"></div>
+        <div class="form-group"><label>Branch</label><input class="form-control" placeholder="CSE / Design / Finance"></div>
+      </div>
+      <div class="form-group"><label>Student ID</label><input class="form-control" required></div>
+      <div class="form-group"><label>Password</label><input class="form-control" type="password" required></div>
+      <p id="regError" style="font-size:.8rem;color:var(--danger);min-height:18px;"></p>
+      <button class="btn btn-primary" style="width:100%;">Create Account &amp; Verify</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/mock-data.js"></script>
+<script src="js/matching.js"></script>
+<script src="js/app.js"></script>
+<script src="js/auth.js"></script>
+<script>initParticles('particle-canvas');</script>
+</body>
+</html>

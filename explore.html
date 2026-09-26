@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore | Campus Cupid</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+</head><body>
+<div id="toast-container"></div>
+<header class="site-header" id="site-header"></header>
+
+<div class="container page-enter" style="padding-top:36px;">
+  <div class="section-head" style="text-align:left;max-width:none;margin-bottom:26px;display:flex;justify-content:space-between;align-items:center;">
+    <div><span class="eyebrow">Friendship Mode</span><h2 style="font-size:1.8rem;">Explore Your Campus</h2></div>
+    <button class="btn btn-ghost" onclick="CC.openSheet('filterSheet')">⚙️ Filters</button>
+  </div>
+  <div class="tag-cloud" id="interestFilterBar" style="margin-bottom:30px;"></div>
+  <div class="explore-grid" id="exploreGrid"></div>
+</div>
+
+<div class="sheet-overlay" id="filterSheet-overlay" onclick="CC.closeSheet('filterSheet')"></div>
+<div class="sheet glass-strong" id="filterSheet">
+  <div class="sheet-handle"></div>
+  <h3 style="margin-bottom:18px;">Filter Explore</h3>
+  <div class="form-group"><label>Campus</label><select class="form-control" id="fCampus"><option>Any</option><option>Bidholi</option><option>Kandoli</option></select></div>
+  <div class="form-group"><label>Year</label><select class="form-control" id="fYear"><option value="0">Any</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+  <button class="btn btn-primary" style="width:100%;" onclick="renderExplore()" data-close-sheet="filterSheet">Apply</button>
+</div>
+
+<nav class="mobile-nav" id="mobile-nav"></nav>
+
+<script src="js/mock-data.js"></script>
+<script src="js/matching.js"></script>
+<script src="js/app.js"></script>
+<script>
+CC.init('explore.html');
+const me = CC.currentUser();
+let activeInterests = [];
+
+const allInterests=[...new Set(Object.values(INTERESTS).flat())];
+document.getElementById('interestFilterBar').innerHTML = allInterests.slice(0,10).map(i=>`<span class="tag" data-i="${i}">${i}</span>`).join('');
+document.querySelectorAll('#interestFilterBar .tag').forEach(t=>t.onclick=()=>{
+  t.classList.toggle('active');
+  const i=t.dataset.i;
+  activeInterests = activeInterests.includes(i)? activeInterests.filter(x=>x!==i) : [...activeInterests,i];
+  renderExplore();
+});
+
+function renderExplore(){
+  const campus=document.getElementById('fCampus').value;
+  const year=+document.getElementById('fYear').value;
+  let pool = getOtherStudents(me.id);
+  if(campus!=='Any') pool = pool.filter(s=>s.campus===campus);
+  if(year) pool = pool.filter(s=>s.year===year);
+  if(activeInterests.length) pool = pool.filter(s=>activeInterests.some(i=>s.interests.includes(i)));
+  const ranked = rankByCompatibility(me, pool);
+  const grid=document.getElementById('exploreGrid');
+  if(!ranked.length){grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><div class="em">🔍</div><h3>No matches yet</h3><p>Try expanding your preferences.</p></div>`;return;}
+  grid.innerHTML = ranked.map(r=>`
+    <a href="profile.html?id=${r.student.id}" class="explore-card glass fade-in">
+      <div class="thumb"><div class="avatar avatar-lg" style="background:${r.student.avatarBg}">${r.student.initials}</div></div>
+      <div class="body">
+        <h4>${r.student.name} ${r.student.verified?'✓':''}</h4>
+        <div class="sub">Y${r.student.year} · ${r.student.branch} · ${r.student.campus}</div>
+        <div class="tag-cloud" style="margin-bottom:10px;">${r.student.interests.slice(0,3).map(i=>`<span class="tag active" style="padding:5px 10px;font-size:.7rem;">${i}</span>`).join('')}</div>
+        <span class="compat-pill">✨ ${r.percent}%</span>
+      </div>
+    </a>`).join('');
+}
+renderExplore();
+</script>
+</body></html>

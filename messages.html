@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messages | Campus Cupid</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+</head><body>
+<div id="toast-container"></div>
+<header class="site-header" id="site-header"></header>
+
+<div class="chat-layout">
+  <div class="chat-list" id="chatList"></div>
+  <div class="chat-window">
+    <div class="chat-head" id="chatHead"></div>
+    <div class="chat-body" id="chatBody"></div>
+    <form class="chat-input-bar" id="chatForm">
+      <button type="button" class="icon-btn" onclick="CC.toast('🎙️ Voice note recorded (mock)')">🎙️</button>
+      <input type="text" id="chatInput" placeholder="Type a message...">
+      <button type="button" class="icon-btn" onclick="CC.toast('😊 GIF/Sticker picker (mock)')">😊</button>
+      <button class="btn btn-primary btn-icon" type="submit">➤</button>
+    </form>
+  </div>
+</div>
+
+<nav class="mobile-nav" id="mobile-nav"></nav>
+<script src="js/mock-data.js"></script>
+<script src="js/matching.js"></script>
+<script src="js/app.js"></script>
+<script src="js/chat.js"></script>
+<script>CC.init('messages.html'); Chat.init();</script>
+</body></html>

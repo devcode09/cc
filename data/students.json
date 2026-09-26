@@ -1,0 +1,8 @@
+
+{
+  "Entertainment": ["Music","Movies","Anime","Netflix","K-pop","Photography"],
+  "Lifestyle": ["Gym","Travel","Food","Fashion","Gaming"],
+  "Technology": ["Coding","AI","Startups","Cybersecurity","Web Dev"],
+  "Sports": ["Cricket","Football","Basketball","Badminton","Running"],
+  "Creative": ["Drawing","Writing","Dance","Singing","Video Editing"]
+}

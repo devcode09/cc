@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Campus Cupid</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+</head><body>
+<div id="toast-container"></div>
+<header class="site-header">
+  <a href="index.html" class="logo">💜 Campus<span class="gradient-text">Cupid</span> <span class="badge" style="margin-left:8px;">ADMIN</span></a>
+</header>
+
+<div class="container page-enter" style="padding-top:36px;">
+  <h2 style="margin-bottom:24px;">Admin Overview</h2>
+  <div class="admin-stats" id="statCards"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;">
+    <div class="glass" style="padding:26px;">
+      <h3 style="margin-bottom:20px;">Popular Interests</h3>
+      <div class="bar-chart" id="interestChart"></div>
+    </div>
+    <div class="glass" style="padding:26px;">
+      <h3 style="margin-bottom:20px;">Most-Used Modes</h3>
+      <div class="bar-chart" id="modeChart"></div>
+    </div>
+  </div>
+
+  <div class="glass" style="padding:26px;margin-top:24px;">
+    <h3 style="margin-bottom:16px;">Pending Verifications</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:.85rem;">
+      <thead><tr style="text-align:left;color:var(--text-2);"><th style="padding:10px;">Student</th><th>Campus</th><th>Year</th><th>Status</th><th></th></tr></thead>
+      <tbody id="pendingBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="js/mock-data.js"></script>
+<script>
+const stats=[
+  ['Total Students', STUDENTS.length+  '  ', '👥'],
+  ['Verified Profiles', STUDENTS.filter(s=>s.verified).length, '✓'],
+  ['Active Today', Math.round(STUDENTS.length*0.7), '🟢'],
+  ['Reports', 2, '🚩'],
+  ['Matches Created', 34, '💜'],
+];
+document.getElementById('statCards').innerHTML = stats.map(([l,n,i])=>`
+  <div class="stat-card glass"><div style="font-size:1.4rem;">${i}</div><div class="num gradient-text">${n}</div><div class="text-dim" style="font-size:.8rem;">${l}</div></div>`).join('');
+
+const interestCount={};
+STUDENTS.forEach(s=>s.interests.forEach(i=>interestCount[i]=(interestCount[i]||0)+1));
+const top=Object.entries(interestCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
+const max=Math.max(...top.map(t=>t[1]));
+document.getElementById('interestChart').innerHTML = top.map(([name,c])=>`<div class="bar" style="height:${c/max*100}%"><span>${name}</span></div>`).join('');
+
+const modeCount={};
+STUDENTS.forEach(s=>s.lookingFor.forEach(m=>modeCount[m]=(modeCount[m]||0)+1));
+const modes=Object.entries(modeCount);
+const maxM=Math.max(...modes.map(m=>m[1]));
+document.getElementById('modeChart').innerHTML = modes.map(([name,c])=>`<div class="bar" style="height:${c/maxM*100}%;background:linear-gradient(135deg,#fbbf24,#ec4899);"><span>${name}</span></div>`).join('');
+
+document.getElementById('pendingBody').innerHTML = STUDENTS.filter(s=>!s.verified).map(s=>`
+  <tr style="border-top:1px solid var(--border);"><td style="padding:10px;">${s.name}</td><td>${s.campus}</td><td>Y${s.year}</td>
+  <td><span class="badge">Pending</span></td><td><button class="btn btn-primary btn-sm" onclick="this.closest('tr').remove()">Approve</button></td></tr>`).join('')
+  || `<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text-2);">No pending verifications 🎉</td></tr>`;
+</script>
+</body></html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Campus Cupid</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+</head><body>
+<div id="toast-container"></div>
+<header class="site-header" id="site-header"></header>
+
+<section style="padding:70px 24px 20px;text-align:center;" class="page-enter">
+  <span class="eyebrow" id="greetTag">Welcome back</span>
+  <h1 style="font-size:clamp(2rem,5vw,3.4rem);">Find Your <span class="gradient-text">Campus People</span>.</h1>
+  <p class="text-muted" style="max-width:520px;margin:14px auto 26px;">Friends, study partners, teammates, or someone special — discover people who match your vibe.</p>
+  <a href="discover.html" class="btn btn-primary">Start Discovering →</a>
+</section>
+
+<div class="container">
+  <div class="dash-grid">
+    <div class="dash-card glass" onclick="location.href='discover.html'">
+      <div class="top"><span class="lbl">Today's Matches</span><span>🔮</span></div>
+      <div class="num gradient-text">5</div><p class="text-dim">Curated picks ready</p>
+    </div>
+    <div class="dash-card glass" onclick="location.href='matches.html'">
+      <div class="top"><span class="lbl">New Likes</span><span>💌</span></div>
+      <div class="num gradient-text">3</div><p class="text-dim">People interested in you</p>
+    </div>
+    <div class="dash-card glass" onclick="location.href='discover.html'">
+      <div class="top"><span class="lbl">Nearby Campus</span><span>📍</span></div>
+      <div class="num gradient-text">8</div><p class="text-dim">Around Library &amp; Cafeteria</p>
+    </div>
+    <div class="dash-card glass" onclick="location.href='discover.html?mode=Study Buddy'">
+      <div class="top"><span class="lbl">Study Buddy Suggestions</span><span>📚</span></div>
+      <div class="num gradient-text">6</div><p class="text-dim">Same branch &amp; year</p>
+    </div>
+    <div class="dash-card glass" onclick="location.href='explore.html'">
+      <div class="top"><span class="lbl">Friendship Suggestions</span><span>🤝</span></div>
+      <div class="num gradient-text">10</div><p class="text-dim">Shared interests found</p>
+    </div>
+    <div class="dash-card glass" onclick="location.href='discover.html?mode=Dating'">
+      <div class="top"><span class="lbl">Dating Suggestions</span><span>❤️</span></div>
+      <div class="num gradient-text">4</div><p class="text-dim">High compatibility</p>
+    </div>
+  </div>
+
+  <section style="padding-top:60px;">
+    <div class="section-head" style="margin-bottom:30px;text-align:left;max-width:none;">
+      <span class="eyebrow">🎯 Today's Picks</span><h2>5 people you may genuinely connect with</h2>
+    </div>
+    <div class="explore-grid" id="picksGrid"></div>
+  </section>
+</div>
+
+<nav class="mobile-nav" id="mobile-nav"></nav>
+
+<script src="js/mock-data.js"></script>
+<script src="js/matching.js"></script>
+<script src="js/app.js"></script>
+<script>
+  CC.init('home.html');
+  const me=CC.currentUser();
+  document.getElementById('greetTag').textContent=`Welcome back, ${me.name.split(' ')[0]} 👋`;
+  const picks = rankByCompatibility(me, getOtherStudents(me.id)).slice(0,5);
+  document.getElementById('picksGrid').innerHTML = picks.map(p=>`
+    <a href="profile.html?id=${p.student.id}" class="explore-card glass">
+      <div class="thumb"><div class="avatar avatar-lg" style="background:${p.student.avatarBg}">${p.student.initials}</div></div>
+      <div class="body">
+        <h4>${p.student.name}</h4>
+        <div class="sub">Y${p.student.year} · ${p.student.branch}</div>
+        <span class="compat-pill">✨ ${p.percent}%</span>
+      </div>
+    </a>`).join('');
+</script>
+</body></html>

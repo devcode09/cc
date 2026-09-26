@@ -1,0 +1,27 @@
+@media(max-width:1080px){
+  .modes-grid,.steps,.safety-grid{grid-template-columns:repeat(2,1fr);}
+  .dash-grid{grid-template-columns:repeat(2,1fr);}
+  .admin-stats{grid-template-columns:repeat(3,1fr);}
+  .chat-layout{grid-template-columns:280px 1fr;}
+}
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .mobile-nav{display:block;}
+  body{padding-bottom:70px;}
+  .profile-hero{grid-template-columns:1fr;text-align:center;}
+  .settings-layout{grid-template-columns:1fr;}
+  .settings-nav{display:flex;overflow-x:auto;gap:8px;}
+  .settings-nav a{white-space:nowrap;}
+  .campus-grid,.modes-grid,.steps,.safety-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .dash-grid{grid-template-columns:1fr;}
+  .admin-stats{grid-template-columns:repeat(2,1fr);}
+  .chat-layout{grid-template-columns:1fr;}
+  .chat-list{display:none;}
+  .chat-list.show{display:block;position:fixed;inset:0;z-index:50;background:var(--bg-0);}
+}
+@media(max-width:520px){
+  .deck-wrap{height:530px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .hero{padding:80px 18px 60px;}
+}
